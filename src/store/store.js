@@ -1,1 +1,7 @@
-//TODO REDUX STORE
+import { configureStore } from "@reduxjs/toolkit";
+
+export const store = configureStore({
+    reducer: {
+        
+    }
+})
