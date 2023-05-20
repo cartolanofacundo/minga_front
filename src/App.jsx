@@ -1,12 +1,12 @@
+import { MainLayout } from "./layouts/MainLayout"
+import {Home} from "./pages/Home"
 function App() {
 
 
   return (
-    <>
-      <div className="w-[500px] h-[500px] bg-red-400">
-        hola
-      </div>
-    </>
+    <MainLayout>
+      <Home/>
+    </MainLayout>
   )
 }
 
