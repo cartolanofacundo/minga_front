@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { Navigate } from "react-router-dom"
+import { Loading } from "../pages/Loading";
 
 export function ProtectedRoute({ children, role: roleValidate }) {
     let tokenStorage = JSON.parse(localStorage.getItem("token"));
@@ -12,7 +13,7 @@ export function ProtectedRoute({ children, role: roleValidate }) {
         }
     },[token])
     if (loading) {
-        return <p>loading...</p>
+        return <Loading/>
     }
     if (!token) {
         return <Navigate to={"/login"} replace={true} />

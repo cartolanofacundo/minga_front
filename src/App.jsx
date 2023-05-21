@@ -1,4 +1,3 @@
-import { Login } from "./pages/auth_pages/Login"
 import { Navbar } from "./components/Navbar/Navbar"
 import { useEffect } from "react"
 import { useDispatch } from "react-redux"
