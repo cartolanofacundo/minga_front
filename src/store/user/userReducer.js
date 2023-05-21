@@ -8,7 +8,8 @@ let initial_state = {
     success: null,
     error: null,
     loading: null,
-    user: null
+    user: null,
+    token: null
 }
 
 const reducer = createReducer(
@@ -22,7 +23,8 @@ const reducer = createReducer(
                 user: action.payload.user,
                 loading: false,
                 error: null,
-                success: true
+                success: true,
+                token: action.payload.token
             }
             return new_state
         }
@@ -60,7 +62,8 @@ const reducer = createReducer(
                 user: action.payload.user,
                 loading: false,
                 error: null,
-                success: true
+                success: true,
+                token: action.payload.token
             }
             return new_state
         }
