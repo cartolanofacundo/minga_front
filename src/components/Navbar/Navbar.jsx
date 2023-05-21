@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Hamburguer, CloseIcon } from "../../assets/icons/Icons"
+import { Hamburguer, CloseIcon, AtSimbol } from "../../assets/icons/Icons"
 import navbar_logo from "../../assets/images/navbar_logo.png"
 import { Links } from "./Links"
 import { UserInfo } from "./UserInfo"
