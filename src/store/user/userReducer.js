@@ -7,7 +7,7 @@ const {sign_in, sign_in_token, sign_out} = authActions
 let initial_state = {
     success: null,
     error: null,
-    loading: true,
+    loading: null,
     user: null
 }
 
@@ -119,6 +119,7 @@ const reducer = createReducer(
     .addCase(
         sign_out.rejected,
         (state, action) => {
+            console.log("entre al rejected", action.payload.error)
             const new_state = {
                 ...state,
                 error: action.payload.error,

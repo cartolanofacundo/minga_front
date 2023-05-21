@@ -3,7 +3,7 @@ import { apiUrl } from "../../utils/api.js"
 import { parseError } from "../../utils/utils.js";
 import axios from "axios";
 
-const sign_in = createAsyncThunk("sign_in", async ({ data }) => {
+const sign_in = createAsyncThunk("sign_in", async ({ data }, { rejectWithValue }) => {
     try {
         let url = apiUrl + "auth/signin";
         let response = await axios.post(url, data);
@@ -13,12 +13,13 @@ const sign_in = createAsyncThunk("sign_in", async ({ data }) => {
         }
     } catch (error) {
         let {newError} =  parseError({error});
-        return {
+        console.log("newError",newError);
+        return  rejectWithValue({
             success: false,
             loading: false,
             error: newError,
             user: null
-        }
+        })
     }
 })
 const sign_in_token = createAsyncThunk("sign_in_token", async () => {

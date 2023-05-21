@@ -1,5 +1,5 @@
 //todo utils
-export function parseError({error}) {
+export function parseError({ error }) {
     let newError = {}
     let pathArray = []
     if (error.response.status !== 401) {
@@ -18,5 +18,12 @@ export function parseError({error}) {
             unauthorized: "You don't have authorization for this action"
         }
     }
-    return {newError}
+    return { newError }
+}
+
+export function parseDataFromForm(e) {
+    e.preventDefault();
+    let data = Object.fromEntries(new FormData(e.target))
+
+    return {data}
 }
