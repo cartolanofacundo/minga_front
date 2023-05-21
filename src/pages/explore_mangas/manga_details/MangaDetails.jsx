@@ -1,10 +1,10 @@
 import { Outlet } from "react-router-dom";
 
-export function MyProfile() {
+export function MangaDetails() {
     return (
         <>
+            <h1>MangaDetails</h1>
             <Outlet />
-            <h1>MyProfile</h1>
         </>
 
     )
