@@ -69,9 +69,12 @@ const sign_up = createAsyncThunk("sign_up", async ({ data }, { rejectWithValue }
 const sign_out = createAsyncThunk("sign_out", async () => {
     try {
         let token = JSON.parse(localStorage.getItem("token"))
+        let headers = { headers: { 'Authorization': `Bearer ${token}` } }
         let url = apiUrl + "auth/signout";
         //eslint-disable-next-line
-        let response = await axios.post(url, null, token);
+        let response = await axios.post(url, null, headers);
+        console.log("remove item")
+        localStorage.removeItem("token")
         return {
             success: true,
             user: null
@@ -86,15 +89,34 @@ const sign_out = createAsyncThunk("sign_out", async () => {
         }
     }
 })
+const verify_code = createAsyncThunk("verify_code", async ({data}, { rejectWithValue }) => {
+    try {
+        let url = apiUrl + `auth/verify/${data}`;
+        //eslint-disable-next-line
+        let response = await axios.put(url);
+        return {
+            success: true,
+            user: null
+        }
+    } catch (error) {
+        let { newError } = parseError({ error });
+        return rejectWithValue({
+            success: false,
+            loading: false,
+            error: newError,
+            user: null
+        })
+    }
+})
 const clean_up = createAction("clean_up", () => {
     return{
         payload: {
-            succes: null,
+            success: null,
             error: null,
             loading: null
         }
     }
 })
 
-const actions = { sign_in, sign_in_token, sign_out, sign_up, clean_up }
+const actions = { sign_in, sign_in_token, sign_out, sign_up,verify_code, clean_up }
 export default actions;

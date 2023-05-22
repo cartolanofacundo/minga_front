@@ -18,7 +18,10 @@ export function Login() {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(clean_up())
-        return () => {dispatch(clean_up())}
+        return () => {
+            console.log("me desmonte login")
+            dispatch(clean_up())
+        }
     }, [])
 
     useEffect(() => {

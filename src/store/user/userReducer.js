@@ -2,14 +2,16 @@ import { createReducer } from "@reduxjs/toolkit";
 
 import authActions from "./authActions"
 
-const { sign_in, sign_in_token, sign_out, sign_up, clean_up } = authActions
+
+const { sign_in, sign_in_token, sign_out, sign_up, clean_up, verify_code } = authActions
 
 let initial_state = {
     success: null,
     error: null,
     loading: null,
     user: null,
-    token: null
+    token: null,
+    verify: null
 }
 
 const reducer = createReducer(
@@ -136,9 +138,9 @@ const reducer = createReducer(
                 const new_state = {
                     ...state,
                     user: null,
+                    token: null,
                     loading: false,
                     error: null,
-                    success: true
                 }
                 return new_state
             }
@@ -162,7 +164,44 @@ const reducer = createReducer(
                 const new_state = {
                     ...state,
                     error: action.payload.error,
-                    success: false,
+                    loading: false
+                }
+                return new_state
+            }
+        )
+        .addCase(
+            verify_code.fulfilled,
+            //eslint-disable-next-line
+            (state, action) => {
+                const new_state = {
+                    ...state,
+                    loading: false,
+                    error: null,
+                    verify: true
+                }
+                return new_state
+            }
+        )
+        .addCase(
+            verify_code.pending,
+            //eslint-disable-next-line
+            (state, action) => {
+                const new_state = {
+                    ...state,
+                    error: null,
+                    loading: true
+                }
+                return new_state;
+            }
+        )
+        .addCase(
+            verify_code.rejected,
+            (state, action) => {
+                console.log("entre al rejected", action.payload.error)
+                const new_state = {
+                    ...state,
+                    error: action.payload.error,
+                    verify: false,
                     loading: false
                 }
                 return new_state
