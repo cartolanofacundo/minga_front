@@ -21,12 +21,12 @@ export function Navbar() {
             {show &&
                 <div id="overlay" className="fixed top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.7)] z-50" onClick={(e) => e.target.id === "overlay" && setShow(false)}>
                     <nav className="h-screen w-[100vw] sm:w-[50vw] lg:w-[33vw] bg-[#4338CA] z-50 p-4 flex flex-col justify-start items-center relative">
-                        <div className="flex flex-row justify-between w-full border-b-[1px] border-white py-4 ">
+                        <div className="flex flex-row justify-end w-full border-b-[1px] border-white py-4 ">
                             {
                                 token && <UserInfo />
                             }
 
-                            <button className="text-white" onClick={() => setShow(false)}>
+                            <button className="text-white self-center" onClick={() => setShow(false)}>
                                 <CloseIcon />
                             </button>
                         </div>
