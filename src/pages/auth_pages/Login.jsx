@@ -6,12 +6,38 @@ import { ActionButton } from "../../components/auth/ActionButton"
 import { parseDataFromForm } from "../../utils/utils"
 import { useDispatch, useSelector } from "react-redux"
 import actions from "../../store/user/authActions"
-import { toast, Toaster } from "react-hot-toast"
+import { Link as Anchor } from "react-router-dom"
+import { useEffect } from "react"
+import { toast } from "react-hot-toast"
+import { useNavigate } from "react-router-dom"
 
-const { sign_in } = actions
+const { sign_in, clean_up } = actions
 export function Login() {
+    let navigate = useNavigate()
     const { error, success } = useSelector((store) => store.user)
     const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(clean_up())
+        return () => {dispatch(clean_up())}
+    }, [])
+
+    useEffect(() => {
+        if(error?.credentials){
+            toast.error("Wrong credentials")
+        }
+        if(error?.verify){
+            toast.error("You are not verify")
+            setTimeout(() => toast.error("Please verify your email"), 300)
+            
+            setTimeout(() => {navigate("/verify")}, 1500)
+            
+        }
+        if(success){
+            toast.success("Signed in")
+            setTimeout(() => {navigate("/")})
+        }
+        
+    },[error, success])
     function handleSubmit(e) {
         let { data } = parseDataFromForm(e)
         dispatch(sign_in({ data }));
@@ -20,7 +46,6 @@ export function Login() {
     console.log(error);
     return (
         <>
-            <Toaster />
             <div className="h-screen w-full flex flex-row justify-center relative">
 
                 <figure className="w-[50vw] h-screen hidden lg:block">
@@ -31,14 +56,13 @@ export function Login() {
                     <form action="post" onSubmit={handleSubmit} className="w-full p-4 lg:p-0 lg:w-1/2 lg:h-1/2 flex flex-col gap-4 items-center">
                         <h2 className="text-4xl font-roboto font-bold ">Welcome <span className="text-[#4338CA]">back</span>!</h2>
                         <p className="text-[#1F1F1FBF] font-roboto text-center">Discover manga, manhua and manhwa, track your progress, have fun, read manga.</p>
-                        <Error error={error?.credentials} />
                         <Input error={error?.email} icon={<EmailIcon />} placeholder={"Insert your email"} name={"email"} type={"email"} />
                         <Input error={error?.password} icon={<AtSimbol />} placeholder={"*********"} name={"password"} type={"password"} />
                         <ActionButton>
                             Sign in
                         </ActionButton>
-                        <p className="font-medium font-roboto">You don't have an account yet? <a href="" className="text-[#4338CA]">Sign up</a> </p>
-                        <p className="font-medium font-roboto">Go back to  <a href="" className="text-[#4338CA]">home page</a> </p>
+                        <p className="font-medium font-roboto">You dont have an account yet? <Anchor to={"/register"} className="text-[#4338CA]">Sign up</Anchor> </p>
+                        <p className="font-medium font-roboto">Go back to  <Anchor to={"/"} className="text-[#4338CA]">home page</Anchor> </p>
                     </form>
                 </div>
             </div>
