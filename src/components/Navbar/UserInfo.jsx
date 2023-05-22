@@ -1,13 +1,20 @@
+import { useSelector } from "react-redux"
+import {Link as Anchor} from "react-router-dom"
 export function UserInfo() {
+    let { token, user } = useSelector(store => store.user)
     return (
-        <div className="w-full flex flex-row justify-start items-center gap-4">
-            <figure>
-                <img className="w-14 h-14 object-cover rounded-full items-center justify-between" src="https://www.nj.com/resizer/zovGSasCaR41h_yUGYHXbVTQW2A=/1280x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg" alt="" />
-            </figure>
-            <div className="text-white font-roboto">
-                <p className="font-bold">Facundo Cartolano</p>
-                <p className="font-light text-sm">cartolanofacundo@gmail.com</p>
-            </div>
-        </div>
+        <>
+            {
+                token && <Anchor to={`/profile/user/${user._id}`} className="w-full flex flex-row justify-start items-center gap-4">
+                    <figure>
+                        <img className="w-14 h-14 object-cover rounded-full items-center justify-between" src={user?.photo} alt="" />
+                    </figure>
+                    <div className="text-white font-roboto">
+                        <p className="font-bold">{user?.name} {user?.last_name}</p>
+                        <p className="font-light text-sm">{user?.email}</p>
+                    </div>
+                </Anchor>
+            }
+        </>
     )
 }

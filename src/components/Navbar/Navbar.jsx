@@ -1,11 +1,17 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Hamburguer, CloseIcon, AtSimbol } from "../../assets/icons/Icons"
 import navbar_logo from "../../assets/images/navbar_logo.png"
 import { Links } from "./Links"
 import { UserInfo } from "./UserInfo"
-
+import { useLocation } from "react-router-dom"
 export function Navbar() {
+    const location = useLocation()
     const [show, setShow] = useState(false)
+    useEffect(() => {
+        if (show) {
+            setShow(false)
+        }
+    }, [location])
     return (
         <>
             {show &&
@@ -14,7 +20,7 @@ export function Navbar() {
                         <div className="flex flex-row justify-between w-full border-b-[1px] border-white pb-4">
                             <UserInfo />
                             <button className="text-white" onClick={() => setShow(false)}>
-                                <CloseIcon/>
+                                <CloseIcon />
                             </button>
                         </div>
 
