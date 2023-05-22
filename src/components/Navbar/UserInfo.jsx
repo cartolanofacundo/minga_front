@@ -5,7 +5,7 @@ export function UserInfo() {
     return (
         <>
             {
-                token && <Anchor to={`/profile/user/${user._id}`} className="w-full flex flex-row justify-start items-center gap-4">
+                token && <Anchor to={`/profile/user/${user?._id}`} className="w-full flex flex-row justify-start items-center gap-4">
                     <figure>
                         <img className="w-14 h-14 object-cover rounded-full items-center justify-between" src={user?.photo} alt="" />
                     </figure>
