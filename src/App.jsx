@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import actions from "./store/user/authActions"
 import {Routes} from "./routes/Routes"
+import { Toaster } from "react-hot-toast"
 
 const {sign_in_token} = actions
 
@@ -17,6 +18,7 @@ function App() {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center">
+      <Toaster/>
       <header>
         <Navbar />
       </header>
