@@ -9,8 +9,8 @@ export function Footer() {
             <img className="w-full" src={footer_image} alt="footer image" />
             <div className="w-full sm:w-3/4 gap-4 px-4 my-4 sm:my-10 sm:border-b-[1px] sm:border-b-[#D5D8DC] flex  flex-col sm:flex-row justify-between items-center sm:pb-5">
                 <nav className="flex flex-row gap-4 grow">
-                    <a>Home</a>
-                    <a>Mangas</a>
+                    <Anchor to={"/"} className="underline">Home</Anchor>
+                    <Anchor to={"/mangas/1"} className="underline">Mangas</Anchor>
                 </nav>
                 <figure className="flex flex-row justify-center items-center grow">
                     <img src={footer_logo} alt="footer logo" />
