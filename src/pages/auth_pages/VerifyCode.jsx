@@ -13,7 +13,6 @@ export function VerifyCode() {
     useEffect(() => {
         dispatch(clean_up())
         return () => {
-            console.log("me desmonte verify")
             dispatch(clean_up())
         }
     }, [])

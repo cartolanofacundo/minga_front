@@ -19,7 +19,6 @@ export function Login() {
     useEffect(() => {
         dispatch(clean_up())
         return () => {
-            console.log("me desmonte login")
             dispatch(clean_up())
         }
     }, [])
@@ -46,7 +45,6 @@ export function Login() {
         dispatch(sign_in({ data }));
         //todo navigate
     }
-    console.log(error);
     return (
         <>
             <div className="h-screen w-full flex flex-row justify-center relative">

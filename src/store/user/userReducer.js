@@ -160,7 +160,6 @@ const reducer = createReducer(
         .addCase(
             sign_out.rejected,
             (state, action) => {
-                console.log("entre al rejected", action.payload.error)
                 const new_state = {
                     ...state,
                     error: action.payload.error,
@@ -197,7 +196,6 @@ const reducer = createReducer(
         .addCase(
             verify_code.rejected,
             (state, action) => {
-                console.log("entre al rejected", action.payload.error)
                 const new_state = {
                     ...state,
                     error: action.payload.error,

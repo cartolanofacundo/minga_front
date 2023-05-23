@@ -73,7 +73,6 @@ const sign_out = createAsyncThunk("sign_out", async () => {
         let url = apiUrl + "auth/signout";
         //eslint-disable-next-line
         let response = await axios.post(url, null, headers);
-        console.log("remove item")
         localStorage.removeItem("token")
         return {
             success: true,
