@@ -25,5 +25,15 @@ export function parseDataFromForm(e) {
     e.preventDefault();
     let data = Object.fromEntries(new FormData(e.target))
 
-    return {data}
+    return { data }
+}
+
+export function debounce(callback, wait) {
+    let timerId;
+    return (...args) => {
+        clearTimeout(timerId);
+        timerId = setTimeout(() => {
+            callback(...args);
+        }, wait);
+    };
 }
