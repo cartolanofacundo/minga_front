@@ -1,6 +1,7 @@
 import { Heart } from "../assets/icons/Icons"
 import footer_image from "../assets/images/footer_image.png"
 import footer_logo from "../assets/images/footer_logo.png"
+import { Link as Anchor } from "react-router-dom"
 
 export function Footer() {
     return (
@@ -15,7 +16,7 @@ export function Footer() {
                     <img src={footer_logo} alt="footer logo" />
                 </figure>
                 <div className="grow flex flex-row items-center justify-end">
-                    <button className="rounded-lg bg-[#4338CA] w-full sm:w-1/2 p-2 flex flex-row justify-center items-center text-white"> <span className="mr-2">Donate</span>  <Heart /></button>
+                    <Anchor to={"donate"} className="rounded-lg bg-[#4338CA] w-full sm:w-1/2 p-2 flex flex-row justify-center items-center text-white"> <span className="mr-2">Donate</span>  <Heart /></Anchor>
                 </div>
             </div>
         </div>

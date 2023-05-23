@@ -37,10 +37,13 @@ import { AdminDashBoard } from "../pages/admin_pages/AdminDashboard"
 import { Authors } from "../pages/admin_pages/Authors"
 import { Companies } from "../pages/admin_pages/Companies"
 
-
+/* userPages */
 import {MyProfile} from "../pages/user/MyProfile"
 import {DeleteAccount} from "../pages/user/DeleteAccount"
 import {UpdateProfile} from "../pages/user/UpdateProfile"
+
+/* donate */
+import { Donate } from "../pages/donate/Donate"
 
 /* feedback */
 import { ErrorPage } from "../pages/ErrorPage"
@@ -121,9 +124,12 @@ export function Routes() {
             </Route>
 
 
+            {/* donate */}
+            <Route path="donate" element={<Donate/>}/>
 
             {/* feedback pages */}
             <Route path="*" element={<ErrorPage />} />
+            
 
 
         </Router>

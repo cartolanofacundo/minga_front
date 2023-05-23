@@ -6,6 +6,7 @@ import { UserInfo } from "./UserInfo"
 import { useLocation } from "react-router-dom"
 import { Logout } from "./Logout"
 import { useSelector } from "react-redux"
+import { DonateNav } from "./DonateNav"
 
 export function Navbar() {
     const location = useLocation()
@@ -32,6 +33,9 @@ export function Navbar() {
                         </div>
 
                         <Links />
+                        
+                        <DonateNav/>
+
                         {
                             token && <Logout />
                         }
