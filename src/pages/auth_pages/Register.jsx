@@ -7,13 +7,11 @@ import { Link as Anchor, useNavigate } from "react-router-dom";
 import actions from "../../store/user/authActions"
 import { parseDataFromForm } from "../../utils/utils";
 import { useEffect } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 //GoogleAuth
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios'
-import apiUrl from '../../../api';
+import Google from "./Google";
+
 
 
 
@@ -64,20 +62,7 @@ export function Register() {
                         <ActionButton>
                             Sign up
                         </ActionButton>
-                        <GoogleOAuthProvider clientId={import.meta.env.VITE_APP_CLIENT}>
-                            <GoogleLogin
-                                onSuccess={credentialResponse => {
-                                    setAccount(credentialResponse.credential);
-                                    let headers = {
-                                        headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}` }
-                                    }
-                                    axios.post(apiUrl + 'auth/signupGoogle', { credential: account }, headers).then(res => console.log(res))
-                                }}
-                                onError={() => {
-                                    console.log('Login Failed');
-                                }}
-                            />
-                        </GoogleOAuthProvider>
+                        <Google />
                         <p className="font-medium font-roboto">You have an account <Anchor to={"/login"} className="text-[#4338CA]">Sign in</Anchor> </p>
                         {/* <h2 className="text-4xl font-roboto font-bold ">Welcome <span className="text-[#4338CA]">back</span>!</h2>
                         <p className="text-[#1F1F1FBF] font-roboto text-center">Discover manga, manhua and manhwa, track your progress, have fun, read manga.</p>
