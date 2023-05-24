@@ -24,6 +24,24 @@ export function parseError({ error }) {
 export function parseDataFromForm(e) {
     e.preventDefault();
     let data = Object.fromEntries(new FormData(e.target))
-
-    return {data}
+    return { data }
 }
+
+export function debounce({ callback, data, time, timerId, setTimerId }) {
+    //esto limpia el settimeout anterior si se vuelve a ejecutar si no se ejecuta se ejecuta el settimeout que estaba
+    clearTimeout(timerId);
+    setTimerId(setTimeout(() => {
+        callback(data);
+    }, time))
+}
+export function parsePagesArray(numberOfPages) {
+    let pages = []
+    if (numberOfPages !== 0) {
+        for (let index = 0; index < numberOfPages; index++) {
+            pages.push(index + 1)
+        }
+        return pages;
+    }
+    return [1];
+}
+

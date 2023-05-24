@@ -7,6 +7,7 @@ export function Links() {
             <NavLink to={"/"} className="w-full  text-white text-start p-2 px-4 rounded-lg font-bold font-roboto border-[1px] border-transparent hover:border-[#ffffff]" style={({ isActive }) => { return { backgroundColor: isActive ? "#ffffff" : "transparent", color: isActive ? "#4338CA" : "#ffffff" } }}>
                 Home
             </NavLink>
+
             {!token &&
                 <>
                     <NavLink to={"/login"} className="w-full  text-white text-start p-2 px-4 rounded-lg font-bold font-roboto border-[1px] border-transparent hover:border-[#ffffff]" style={({ isActive }) => { return { backgroundColor: isActive ? "#ffffff" : "transparent", color: isActive ? "#4338CA" : "#ffffff" } }}>
@@ -43,7 +44,7 @@ export function Links() {
                     </NavLink>
                 </>
             }
-            
+
 
         </div>
     )
