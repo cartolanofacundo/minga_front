@@ -10,15 +10,15 @@ import { Link as Anchor } from "react-router-dom"
 import { useEffect } from "react"
 import { toast } from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
-
-//GoogleSingin auth
-import axios from 'axios'
+import Google from "./Google"
+import googleAction from '../../store/user/googleActions'
+const { sign_in_google } = googleAction
 
 
 const { sign_in, clean_up } = actions
 export function Login() {
     let navigate = useNavigate()
-    const { error, success } = useSelector((store) => store.user)
+    const { error, success, google } = useSelector((store) => store.user)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(clean_up())
@@ -29,7 +29,12 @@ export function Login() {
 
     useEffect(() => {
         if (error?.credentials) {
-            toast.error("Wrong credentials")
+            if (google) {
+                setTimeout(() => { navigate("/register") }, 1500)
+                toast.error("User is not exist")
+            } else {
+                toast.error("Wrong credentials")
+            }
         }
         if (error?.verify) {
             toast.error("You are not verify")
@@ -52,7 +57,6 @@ export function Login() {
     return (
         <>
             <div className="h-screen w-full flex flex-row justify-center relative">
-
                 <figure className="w-[50vw] h-screen hidden lg:block">
                     <img className="w-full h-full" src={sign_in_image} alt="sign in image" />
                 </figure>
@@ -66,7 +70,7 @@ export function Login() {
                         <ActionButton>
                             Sign in
                         </ActionButton>
-                        <Google request={axios.get} endpoint={'checkear esto'}/>
+                        <Google action={sign_in_google} />
                         <p className="font-medium font-roboto">You dont have an account yet? <Anchor to={"/register"} className="text-[#4338CA]">Sign up</Anchor> </p>
                         <p className="font-medium font-roboto">Go back to  <Anchor to={"/"} className="text-[#4338CA]">home page</Anchor> </p>
                     </form>

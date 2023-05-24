@@ -1,34 +1,21 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin } from '@react-oauth/google';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
-import singnupActions from '../../store/singupgoogle/singnupAction.js'
-const {singUpgoogle} = singnupActions
+import { useDispatch } from 'react-redux';
 
-
-export default function Google() {
-    const navigate = useNavigate()
-    //REDUX
-    let user = useSelector(store => store.userupgoogle)
-    console.log(user)
+export default function Google({action,}) {
     let dispatch = useDispatch()
-    function singUp(credential) {
-        dispatch(singUpgoogle({ credential }))
-
+    function handleClick(credential) {
+        dispatch(action({ credential }))
     }
     return (
         <GoogleOAuthProvider clientId={import.meta.env.VITE_APP_CLIENT}>
             <GoogleLogin
                 onSuccess={credentialResponse => {
-                    singUp(credentialResponse.credential)
-                    setTimeout(() => {
-                        navigate('/');
-                    }, 2000)
-                    toast.success('User Created!')
+                    console.log(credentialResponse)
+                    handleClick(credentialResponse.credential)
                 }}
                 onError={() => {
-                    console.log('User Created!');
+                    console.log('Error server!');
                 }}
             />
         </GoogleOAuthProvider>

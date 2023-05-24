@@ -1,8 +1,8 @@
 import { createReducer } from "@reduxjs/toolkit";
 
 import authActions from "./authActions"
-
-
+import googleActions from './googleActions'
+const { sing_up_google, sign_in_google } = googleActions
 const { sign_in, sign_in_token, sign_out, sign_up, clean_up, verify_code } = authActions
 
 let initial_state = {
@@ -11,7 +11,8 @@ let initial_state = {
     loading: null,
     user: null,
     token: null,
-    verify: null
+    verify: null,
+    google: false
 }
 
 const reducer = createReducer(
@@ -217,6 +218,95 @@ const reducer = createReducer(
                 return new_state
             }
         )
+        .addCase(
+            sing_up_google.fulfilled,
+            //eslint-disable-next-line
+            (state, action) => {
+                const new_state = {
+                    ...state,
+                    user: action.payload.user,
+                    token: action.payload.token,
+                    loading: false,
+                    error: null,
+                    success: true,
+                    google: true
+                }
+                return new_state
+            }
+        )
+        .addCase(
+            sing_up_google.pending,
+            //eslint-disable-next-line
+            (state, action) => {
+                const new_state = {
+                    ...state,
+                    error: null,
+                    loading: true,
+                    google: true
+                }
+                return new_state;
+            }
+        )
+        .addCase(
+            sing_up_google.rejected,
+            (state, action) => {
+                const new_state = {
+                    ...state,
+                    error: action.payload.error,
+                    loading: false,
+                    success: false,
+                    user: null,
+                    token: null,
+                    google: true
+                }
+                return new_state
+            }
+        )
+        .addCase(
+            sign_in_google.fulfilled,
+            //eslint-disable-next-line
+            (state, action) => {
+                const new_state = {
+                    ...state,
+                    user: action.payload.user,
+                    token: action.payload.token,
+                    loading: false,
+                    error: null,
+                    success: true,
+                    google: true
+                }
+                return new_state
+            }
+        )
+        .addCase(
+            sign_in_google.pending,
+            //eslint-disable-next-line
+            (state, action) => {
+                const new_state = {
+                    ...state,
+                    error: null,
+                    loading: true,
+                    google: true
+                }
+                return new_state;
+            }
+        )
+        .addCase(
+            sign_in_google.rejected,
+            (state, action) => {
+                const new_state = {
+                    ...state,
+                    error: action.payload.error,
+                    loading: false,
+                    success: false,
+                    user: null,
+                    token: null,
+                    google: true
+                }
+                return new_state
+            }
+        )
+
 )
 
 export default reducer;
