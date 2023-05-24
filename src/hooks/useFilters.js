@@ -35,7 +35,7 @@ export function useFilter(path = null) {
 
             }
         }
-
+        navigate(path + "/1")
     }
 
     const handleSearchFilter = function (e) {
