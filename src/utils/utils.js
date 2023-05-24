@@ -24,16 +24,13 @@ export function parseError({ error }) {
 export function parseDataFromForm(e) {
     e.preventDefault();
     let data = Object.fromEntries(new FormData(e.target))
-
     return { data }
 }
 
-export function debounce(callback, wait) {
-    let timerId;
-    return (...args) => {
-        clearTimeout(timerId);
-        timerId = setTimeout(() => {
-            callback(...args);
-        }, wait);
-    };
+export function debounce({callback, data, time, timerId, setTimerId}) {
+    //esto limpia el settimeout anterior si se vuelve a ejecutar si no se ejecuta se ejecuta el settimeout que estaba
+    clearTimeout(timerId);
+    setTimerId(setTimeout(() => {
+        callback(data);
+    }, time))
 }

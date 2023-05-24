@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { debounce } from "../utils/utils";
 
 export function useFilter() {
-
-
     const [categoryQuery, setCategoryQuery] = useState("")
     const [searchQuery, setSearchQuery] = useState("")
+    const [timerId, setTimerId] = useState(null);
 
 
     const handleCategoryQuery = function (form) {
@@ -33,12 +33,19 @@ export function useFilter() {
 
     }
 
-    const handleSearchFilter = function(e) {
+    const handleSearchFilter = function (e) {
         let search = "title=" + e.target.value;
-        setSearchQuery(search)
-        /* setSearchQuery(search); */
+
+        debounce({
+            callback: setSearchQuery,
+            data: search,
+            time: 700,
+            timerId: timerId,
+            setTimerId: setTimerId
+        })
     }
-    
+
     return { categoryQuery, searchQuery, handleCategoryQuery, handleSearchFilter }
 
 }
+
