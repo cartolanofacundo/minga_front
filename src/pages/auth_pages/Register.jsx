@@ -9,6 +9,15 @@ import { parseDataFromForm } from "../../utils/utils";
 import { useEffect } from "react";
 import { Toaster, toast } from "react-hot-toast";
 
+//GoogleAuth
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
+import axios from 'axios'
+import apiUrl from '../../../api';
+
+
+
+
 const { sign_up, clean_up } = actions;
 export function Register() {
     let navigate = useNavigate()
@@ -26,12 +35,12 @@ export function Register() {
         if (error?.userExist) {
             toast.error("User already exists")
             setTimeout(() => navigate("/login"), 1500)
-            
+
         }
         if (success) {
             toast.success("account created")
             setTimeout(() => navigate("/verify"), 1500)
-            
+
         }
 
 
@@ -55,6 +64,20 @@ export function Register() {
                         <ActionButton>
                             Sign up
                         </ActionButton>
+                        <GoogleOAuthProvider clientId={import.meta.env.VITE_APP_CLIENT}>
+                            <GoogleLogin
+                                onSuccess={credentialResponse => {
+                                    setAccount(credentialResponse.credential);
+                                    let headers = {
+                                        headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}` }
+                                    }
+                                    axios.post(apiUrl + 'auth/signupGoogle', { credential: account }, headers).then(res => console.log(res))
+                                }}
+                                onError={() => {
+                                    console.log('Login Failed');
+                                }}
+                            />
+                        </GoogleOAuthProvider>
                         <p className="font-medium font-roboto">You have an account <Anchor to={"/login"} className="text-[#4338CA]">Sign in</Anchor> </p>
                         {/* <h2 className="text-4xl font-roboto font-bold ">Welcome <span className="text-[#4338CA]">back</span>!</h2>
                         <p className="text-[#1F1F1FBF] font-roboto text-center">Discover manga, manhua and manhwa, track your progress, have fun, read manga.</p>
