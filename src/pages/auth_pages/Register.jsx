@@ -7,7 +7,7 @@ import { Link as Anchor, useNavigate } from "react-router-dom";
 import actions from "../../store/user/authActions"
 import { parseDataFromForm } from "../../utils/utils";
 import { useEffect } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 //GoogleAuth
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -40,7 +40,6 @@ export function Register() {
         if (success) {
             toast.success("account created")
             setTimeout(() => navigate("/verify"), 1500)
-
         }
 
 
