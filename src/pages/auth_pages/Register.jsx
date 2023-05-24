@@ -7,22 +7,18 @@ import { Link as Anchor, useNavigate } from "react-router-dom";
 import actions from "../../store/user/authActions"
 import { parseDataFromForm } from "../../utils/utils";
 import { useEffect } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
+import singnupActions from '../../store/user/googleActions.js'
+const { sing_up_google } = singnupActions
 
 //GoogleAuth
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import { GoogleLogin } from '@react-oauth/google';
-import axios from 'axios'
-import apiUrl from '../../../api';
-
-
-
+import Google from "./Google";
 
 const { sign_up, clean_up } = actions;
 export function Register() {
     let navigate = useNavigate()
     const dispatch = useDispatch()
-    let { error, success } = useSelector(store => store.user);
+    let { error, success, google } = useSelector(store => store.user);
     useEffect(() => {
         dispatch(clean_up());
 
@@ -39,12 +35,17 @@ export function Register() {
         }
         if (success) {
             toast.success("account created")
-            setTimeout(() => navigate("/verify"), 1500)
+            if (google) {
+                setTimeout(() => navigate("/"), 1500)
+            } else {
+                setTimeout(() => navigate("/verify"), 1500)
+            }
+
 
         }
 
 
-    }, [success, error])
+    }, [success, error, google])
 
     function handleSubmit(e) {
         let { data } = parseDataFromForm(e)
@@ -64,31 +65,8 @@ export function Register() {
                         <ActionButton>
                             Sign up
                         </ActionButton>
-                        <GoogleOAuthProvider clientId={import.meta.env.VITE_APP_CLIENT}>
-                            <GoogleLogin
-                                onSuccess={credentialResponse => {
-                                    setAccount(credentialResponse.credential);
-                                    let headers = {
-                                        headers: { 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}` }
-                                    }
-                                    axios.post(apiUrl + 'auth/signupGoogle', { credential: account }, headers).then(res => console.log(res))
-                                }}
-                                onError={() => {
-                                    console.log('Login Failed');
-                                }}
-                            />
-                        </GoogleOAuthProvider>
+                        <Google action={sing_up_google}/>
                         <p className="font-medium font-roboto">You have an account <Anchor to={"/login"} className="text-[#4338CA]">Sign in</Anchor> </p>
-                        {/* <h2 className="text-4xl font-roboto font-bold ">Welcome <span className="text-[#4338CA]">back</span>!</h2>
-                        <p className="text-[#1F1F1FBF] font-roboto text-center">Discover manga, manhua and manhwa, track your progress, have fun, read manga.</p>
-                        <Error error={error?.credentials} />
-                        <Input error={error?.email} icon={<EmailIcon />} placeholder={"Insert your email"} name={"email"} type={"email"} />
-                        <Input error={error?.password} icon={<AtSimbol />} placeholder={"*********"} name={"password"} type={"password"} />
-                        <ActionButton>
-                            Sign in
-                        </ActionButton>
-                        <p className="font-medium font-roboto">You don't have an account yet? <a href="" className="text-[#4338CA]">Sign up</a> </p>
-                        <p className="font-medium font-roboto">Go back to  <a href="" className="text-[#4338CA]">home page</a> </p> */}
                     </form>
                 </div>
                 <figure className="w-[50vw] h-screen hidden lg:block">
