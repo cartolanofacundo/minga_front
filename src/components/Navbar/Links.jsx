@@ -2,6 +2,7 @@ import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 export function Links() {
     const { user, token } = useSelector(store => store.user)
+    let {page} = useSelector(store => store.mangas)
     return (
         <div className="flex flex-col justify-start items-center gap-4 p-4 w-full grow">
             <NavLink to={"/"} className="w-full  text-white text-start p-2 px-4 rounded-lg font-bold font-roboto border-[1px] border-transparent hover:border-[#ffffff]" style={({ isActive }) => { return { backgroundColor: isActive ? "#ffffff" : "transparent", color: isActive ? "#4338CA" : "#ffffff" } }}>
@@ -20,7 +21,7 @@ export function Links() {
             }
             {
                 token &&
-                <NavLink to={"/mangas/1"} className="w-full  text-white text-start p-2 px-4 rounded-lg font-bold font-roboto border-[1px] border-transparent hover:border-[#ffffff]" style={({ isActive }) => { return { backgroundColor: isActive ? "#ffffff" : "transparent", color: isActive ? "#4338CA" : "#ffffff" } }}>
+                <NavLink to={`/mangas/${page}`} className="w-full  text-white text-start p-2 px-4 rounded-lg font-bold font-roboto border-[1px] border-transparent hover:border-[#ffffff]" style={({ isActive }) => { return { backgroundColor: isActive ? "#ffffff" : "transparent", color: isActive ? "#4338CA" : "#ffffff" } }}>
                     Explore Mangas
                 </NavLink>
             }

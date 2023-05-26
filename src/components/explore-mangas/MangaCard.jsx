@@ -2,7 +2,7 @@ import { Link as Anchor } from "react-router-dom"
 
 export function MangaCard({manga}) {
     return (
-        <Anchor to={`/manga/${manga._id}`} key={manga._id} className="w-full flex flex-row h-[200px] shadow rounded-lg justify-between items-center lg:w-1/3 overflow-hidden">
+        <Anchor to={`/manga/${manga._id}/`} key={manga._id} className="w-full flex flex-row h-[200px] shadow rounded-lg justify-between items-center lg:w-1/3 overflow-hidden">
             <div className="border-l-4 h-2/3" style={{ borderColor: manga?.category_id?.color }}></div>
             <div className="flex flex-col items-start justify-center h-full grow p-4">
                 <div>
