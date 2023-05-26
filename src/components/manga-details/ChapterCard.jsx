@@ -1,5 +1,7 @@
+import { useSelector } from "react-redux"
 import { Link as Anchor } from "react-router-dom"
 export function ChapterCard({chapter}) {
+    let {page} = useSelector(store => store.read)
     return (
         <div className="w-full flex flex-row justify-between">
             <img src={chapter.cover_photo} alt="" className="w-24 h-24 object-cover rounded-lg" />
@@ -9,7 +11,7 @@ export function ChapterCard({chapter}) {
                     comments
                 </div>
             </div>
-            <Anchor to={`/chapters/${chapter._id}/0`} className="bg-[#4338CA] self-center text-white py-4 px-8 rounded-full font-poppins font-semibold">
+            <Anchor to={`/read/${chapter._id}/${page}`} className="bg-[#4338CA] self-center text-white py-4 px-8 rounded-full font-poppins font-semibold">
                 READ
             </Anchor>
         </div>
