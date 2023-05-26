@@ -3,7 +3,7 @@ import { CategoriesCB } from "../../components/filters/CategoriesCB"
 import { SearchBar } from "../../components/filters/SearchBar"
 import { Pagination } from "../../components/pagination/Pagination"
 import { useFilter } from "../../hooks/useFilters"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import actions from "../../store/mangas/mangasActions"
 import { MangasMap } from "../../components/explore-mangas/MangasMap"
@@ -11,32 +11,37 @@ import { SkeletonMap } from "../../components/explore-mangas/SkeletonMap"
 
 const { get_mangas } = actions
 export function Mangas() {
+    const firstRender = useRef(true)
     const { pages, page, path, loading } = useSelector(store => store.mangas)
-    let navigate = useNavigate()
     const dispatch = useDispatch()
-    let { categoryQuery, searchQuery, handleCategoryQuery, handleSearchFilter } = useFilter()
+    let navigate = useNavigate()
+    let { categoryQuery, searchQuery, handleCategoryQuery, handleSearchFilter } = useFilter("/mangas")
     let { page: pageUrl } = useParams()
+
     useEffect(() => {
-        if (page !== pageUrl && path !== "/mangas") {
-            let path = "/mangas"
-            let page = pageUrl
-            dispatch(get_mangas({ page, path }))
+        let pathLocal = "/mangas"
+        let pageLocal = pageUrl
+        if(pages){
+            if(parseInt(pageUrl) > pages.length){
+                navigate("/mangas/1")
+            }
         }
+        if (page !== parseInt(pageUrl) || path !== "/mangas"){
+            dispatch(get_mangas({ path: pathLocal, page: pageLocal, searchQuery, categoryQuery }))
+        }
+        if (page === parseInt(pageUrl) || path === "/mangas"){
+            if(searchQuery !== "" || categoryQuery !== ""){
+                dispatch(get_mangas({ path: pathLocal, page: pageLocal, searchQuery, categoryQuery }))
+            }
+            if(!firstRender.current && searchQuery === "" && categoryQuery === ""){
+                dispatch(get_mangas({ path: pathLocal, page: pageLocal, searchQuery, categoryQuery }))
+            }
+        }
+        firstRender.current = false
+
+        
         //eslint-disable-next-line
-    }, [])
-    useEffect(() => {
-        let path = "/mangas"
-        let page = pageUrl
-        dispatch(get_mangas({ page, path, searchQuery, categoryQuery }))
-        //eslint-disable-next-line
-    }, [pageUrl])
-    useEffect(() => {
-        let path = "/mangas"
-        let page = 1
-        dispatch(get_mangas({ path, page, searchQuery, categoryQuery }))
-        navigate("/mangas/1")
-        //eslint-disable-next-line
-    }, [searchQuery, categoryQuery])
+    }, [searchQuery, categoryQuery, pageUrl])
 
 
 

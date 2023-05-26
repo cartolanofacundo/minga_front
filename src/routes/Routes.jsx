@@ -91,7 +91,7 @@ export function Routes() {
 
             <Route path="manga/:manga_id" element={<ProtectedRoute role={[0, 1, 2]}><MangaDetails /></ProtectedRoute>}>
                 <Route index element={<Description />} />
-                <Route path='chapters/:page' element={<Chapters />} />
+                <Route path='chapters/:chapterpage' element={<Chapters />} />
             </Route>
 
             <Route path="read/:chapter_id/:page" element={<ProtectedRoute role={[0, 1, 2]}><ReadChapter /></ProtectedRoute>} />

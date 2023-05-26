@@ -52,7 +52,6 @@ const sign_up = createAsyncThunk("sign_up", async ({ data }, { rejectWithValue }
     try {
         let url = apiUrl + "auth/signup";
         let response = await axios.post(url, data);
-
         return {
             success: response.data.success
         }

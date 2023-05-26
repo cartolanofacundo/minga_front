@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { debounce } from "../utils/utils";
+import { useNavigate } from "react-router";
 
-export function useFilter() {
+export function useFilter(path = null) {
     const [categoryQuery, setCategoryQuery] = useState("")
     const [searchQuery, setSearchQuery] = useState("")
     const [timerId, setTimerId] = useState(null);
-
-
+    let navigate = useNavigate()
+    function hadleSetSearchQuery(data){
+        console.log("me ejecute papapaa")
+        setSearchQuery(data)
+        navigate(path + "/1")
+    }
     const handleCategoryQuery = function (form) {
         let labelsArray = Array.from(form.current.children);
         let inputArray = labelsArray.map((item) => {
@@ -30,14 +35,17 @@ export function useFilter() {
 
             }
         }
-
+        navigate(path + "/1")
     }
 
     const handleSearchFilter = function (e) {
         let search = "title=" + e.target.value;
+        if(e.target.value === ""){
+            search = ""
+        }
 
         debounce({
-            callback: setSearchQuery,
+            callback: hadleSetSearchQuery,
             data: search,
             time: 700,
             timerId: timerId,
