@@ -44,7 +44,7 @@ export function ReadChapter() {
     }
     return (
         <div className="w-full min-h-screen h-full flex flex-col justify-start items-center">
-            <div className="w-full h-[70px] bg-[#4338CA] text-white text-xl text-center">{order} - {title}</div>
+            <div className="w-full h-[70px] bg-[#4338CA] text-white text-xl text-center flex flex-row items-center justify-center">{order} - {title}</div>
             <div className="flex flex-col grow relative">
                 <button onClick={handlePrevClick} className="absolute top-0 left-0 bottom-0 w-1/2"></button>
                 <button onClick={handleNextClick} className="absolute top-0 right-0 bottom-0 w-1/2"></button>
