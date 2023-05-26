@@ -15,7 +15,7 @@ export function Donate() {
         },
         {
             title: "Corporate Sponsor",
-            description: "Partner with us to make a difference through corporate sponsorship.",
+            description: "Partner with us to make a difference through corporate.",
             price: 10000,
             image: "https://github.com/cartolanofacundo/minga_azul_front/blob/main/src/assets/images/logo_footer.png?raw=true"
         }

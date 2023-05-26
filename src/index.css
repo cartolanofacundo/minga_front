@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 18px rgba(0, 0, 0, 0.3)
+}
+
+
+
+.card:hover .heart {
+    color: white;
+    transition: 1s;
+
+}
