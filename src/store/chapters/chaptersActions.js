@@ -10,7 +10,9 @@ const get_manga = createAsyncThunk("get_manga", async ({ manga_id, path }) => {
         let url = apiUrl + "mangas/" + manga_id;
         let response = await axios.get(url, headers);
         return {
-            manga: response.data
+            manga_id: manga_id,
+            manga: response.data,
+            path: path
         }
     } catch (error) {
         console.log(error)
@@ -24,7 +26,6 @@ const get_all_from_manga = createAsyncThunk("get_all_from_manga", async ({ manga
         let url = apiUrl + "chapters?" + "manga_id=" + manga_id + "&" + "page=" + page;
         let response = await axios.get(url, headers);
         let pages = parsePagesArray(response.data.pages)
-        console.log(response)
         return {
             chapters: response.data.chapters,
             page: page,
@@ -34,7 +35,6 @@ const get_all_from_manga = createAsyncThunk("get_all_from_manga", async ({ manga
             loading: false
         }
     } catch (error) {
-        console.log(error)
         return {
             loading: false
         }

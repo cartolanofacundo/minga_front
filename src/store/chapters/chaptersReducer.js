@@ -21,7 +21,6 @@ const reducer = createReducer(
         .addCase(
             get_all_from_manga.fulfilled,
             (state, action) => {
-                console.log("entre aca")
                 const new_state = {
                     ...state,
                     chapters: action.payload.chapters,
@@ -37,7 +36,6 @@ const reducer = createReducer(
         .addCase(
             get_all_from_manga.pending,
             (state, action) => {
-                console.log("entre aca")
                 const new_state = {
                     ...state,
                     loading: true
@@ -48,7 +46,6 @@ const reducer = createReducer(
         .addCase(
             get_all_from_manga.rejected,
             (state, action) => {
-                console.log("entre aca")
                 const new_state = {
                     ...state,
                     manga_id: null,
@@ -90,6 +87,8 @@ const reducer = createReducer(
                 const new_state = {
                     ...state,
                     loading: false,
+                    manga_id: null,
+                    path: null,
                     manga: null
                 }
                 return new_state
