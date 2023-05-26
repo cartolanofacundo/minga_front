@@ -41,7 +41,6 @@ export function Register() {
                 setTimeout(() => navigate("/verify"), 1500)
             }
 
-
         }
 
 

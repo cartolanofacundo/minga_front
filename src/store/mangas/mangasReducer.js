@@ -30,6 +30,7 @@ const reducer = createReducer(
     )
     .addCase(
         get_mangas.pending,
+        //eslint-disable-next-line
         (state, action) => {
             const new_state = {
                 ...state,
