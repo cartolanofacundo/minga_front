@@ -18,16 +18,21 @@ export function Chapters() {
         }
         if (manga_id !== manga_id_url) {
             navigate(`/manga/${manga_id_url}/chapters/1`)
+            dispatch(get_all_from_manga({
+                manga_id: manga_id_url,
+                page: 1,
+                path: "/explore-manga"
+            }))
         }
         if (chapterpage !== page) {
+            console.log("page distinta")
             dispatch(get_all_from_manga({
                 manga_id: manga_id_url,
                 page: chapterpage,
                 path: "/explore-manga"
             }))
         }
-        console.log(chapters)
-    }, [chapterpage, manga_id_url, chapters, pages])
+    }, [chapterpage, manga_id_url, pages])
     return (
         <>
             <div className="flex flex-col gap-y-4">

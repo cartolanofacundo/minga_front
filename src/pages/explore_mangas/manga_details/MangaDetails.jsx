@@ -13,7 +13,6 @@ export function MangaDetails() {
     const dispatch = useDispatch()
     const  {manga_id: manga_id_global, manga} = useSelector(store => store.chapters)
     useEffect(() => {
-        console.log(manga)
         if(manga_id !== manga_id_global){
             dispatch(get_manga({
                 manga_id,

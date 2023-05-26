@@ -7,7 +7,6 @@ const get_categories = createAsyncThunk("get_categories", async () => {
     try {
         let url = apiUrl + "categories"
         let response = await axios(url);
-        console.log("categories")
         return {
             categories: response.data.categories
         }

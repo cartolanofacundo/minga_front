@@ -87,16 +87,16 @@ export function Routes() {
 
             {/* mangas pages */}
 
-            <Route path="mangas/:page" element={<ProtectedRoute role={[0, 1, 2]}><Mangas /></ProtectedRoute>} />
+            <Route path="mangas/:page" element={<ProtectedRoute role={[0, 1, 2,3]}><Mangas /></ProtectedRoute>} />
 
-            <Route path="manga/:manga_id" element={<ProtectedRoute role={[0, 1, 2]}><MangaDetails /></ProtectedRoute>}>
+            <Route path="manga/:manga_id" element={<ProtectedRoute role={[0, 1, 2,3]}><MangaDetails /></ProtectedRoute>}>
                 <Route index element={<Description />} />
                 <Route path='chapters/:chapterpage' element={<Chapters />} />
             </Route>
 
-            <Route path="read/:chapter_id/:page" element={<ProtectedRoute role={[0, 1, 2]}><ReadChapter /></ProtectedRoute>} />
+            <Route path="read/:chapter_id/:page" element={<ProtectedRoute role={[0, 1, 2,3]}><ReadChapter /></ProtectedRoute>} />
 
-            <Route path="profile/author/:author_id" element={<ProtectedRoute role={[0, 1, 2]}><AuthorProfile /></ProtectedRoute>} />
+            <Route path="profile/author/:author_id" element={<ProtectedRoute role={[0, 1, 2,3]}><AuthorProfile /></ProtectedRoute>} />
 
             {/* author/company manga dashboard */}
             <Route path="mymangas/:page" element={<ProtectedRoute role={[1, 2]}><MyMangas /></ProtectedRoute>}>
