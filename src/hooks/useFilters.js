@@ -9,7 +9,9 @@ export function useFilter(path = null) {
     let navigate = useNavigate()
     function hadleSetSearchQuery(data){
         setSearchQuery(data)
-        navigate(path + "/1")
+        if(path){
+            navigate(path + "/1")
+        }
     }
     const handleCategoryQuery = function (form) {
         let labelsArray = Array.from(form.current.children);
@@ -34,7 +36,9 @@ export function useFilter(path = null) {
 
             }
         }
-        navigate(path + "/1")
+        if(path){
+            navigate(path + "/1")
+        }
     }
 
     const handleSearchFilter = function (e) {
