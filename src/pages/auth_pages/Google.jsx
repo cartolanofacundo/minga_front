@@ -11,7 +11,6 @@ export default function Google({action,}) {
         <GoogleOAuthProvider clientId={import.meta.env.VITE_APP_CLIENT}>
             <GoogleLogin
                 onSuccess={credentialResponse => {
-                    console.log(credentialResponse)
                     handleClick(credentialResponse.credential)
                 }}
                 onError={() => {

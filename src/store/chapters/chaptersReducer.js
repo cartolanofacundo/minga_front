@@ -1,7 +1,7 @@
 import { createReducer } from "@reduxjs/toolkit";
 import actions from "./chaptersActions";
 
-const { get_all_from_manga, get_manga } = actions
+const { get_all_from_manga, get_manga, send_reaction } = actions
 
 
 const initial_state = {
@@ -57,7 +57,7 @@ const reducer = createReducer(
                     loading: false,
                     page: 1,
                     pages: null
-                    
+
 
                 }
                 return new_state
@@ -69,7 +69,10 @@ const reducer = createReducer(
                 console.log("entre aca")
                 const new_state = {
                     ...state,
-                    manga: action.payload.manga
+                    manga: action.payload.manga,
+                    ranking: action.payload.ranking,
+                    totalChapters: action.payload.numberChapter,
+                    userReactions: action.payload.userReactions
                 }
                 return new_state
             }
@@ -91,6 +94,26 @@ const reducer = createReducer(
                     ...state,
                     loading: false,
                     manga: null
+                }
+                return new_state
+            }
+        )
+        .addCase(
+            send_reaction.fulfilled,
+            (state, action) => {
+                const new_state = {
+                    ...state,
+                    manga:{
+                        ...state.manga,
+                        reactions : {
+                            ...state.manga.reactions,
+                            [action.payload.name]: action.payload.destroy ? state.manga.reactions[action.payload.name]-1 : state.manga.reactions[action.payload.name]+1
+                        }
+                    },
+                    userReactions:{
+                        ...state.userReactions,
+                        [action.payload.name]: !state.userReactions[action.payload.name]
+                    }
                 }
                 return new_state
             }
