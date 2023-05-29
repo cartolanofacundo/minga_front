@@ -8,7 +8,6 @@ export function useFilter(path = null) {
     const [timerId, setTimerId] = useState(null);
     let navigate = useNavigate()
     function hadleSetSearchQuery(data){
-        console.log("me ejecute papapaa")
         setSearchQuery(data)
         navigate(path + "/1")
     }
