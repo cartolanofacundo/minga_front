@@ -10,9 +10,28 @@ const get_manga = createAsyncThunk("get_manga", async ({ manga_id, path }) => {
         let url = apiUrl + "mangas/" + manga_id;
         let response = await axios.get(url, headers);
         return {
-            manga_id: manga_id,
-            manga: response.data,
-            path: path
+
+            manga: response.data.manga,
+            ranking: response.data.ranking,
+            numberChapter: response.data.numberChapter,
+            userReactions: response.data.userReactions
+        }
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+const send_reaction = createAsyncThunk("send_reaction", async ({ manga_id, name }) => {
+    try {
+        let token = JSON.parse(localStorage.getItem("token"))
+        let headers = { headers: { 'Authorization': `Bearer ${token}` } }
+        let response = await axios.post(apiUrl + 'reactions', { name: name, manga_id: manga_id }, headers)
+        console.log(name)
+        console.log(response.data.destroy)
+        return {
+            name: name,
+            destroy: response.data.destroy,
+
         }
     } catch (error) {
         console.log(error)
@@ -43,5 +62,5 @@ const get_all_from_manga = createAsyncThunk("get_all_from_manga", async ({ manga
 
 })
 
-const actions = { get_all_from_manga, get_manga }
+const actions = { get_all_from_manga, get_manga, send_reaction }
 export default actions;

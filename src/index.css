@@ -15,7 +15,6 @@
     color: white;
     transition: 1s;
 }
-
 .image-container {
     height: calc(100vh - 110px);
 }
